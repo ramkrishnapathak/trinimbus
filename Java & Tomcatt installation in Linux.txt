@@ -1,0 +1,413 @@
+
+http://wpcertification.blogspot.in/2014/02/install-apache-tomcat-on-amazon-ec2.html
+
+
+Using username "ec2-user".
+Authenticating with public key "imported-openssh-key"
+Last login: Wed May 23 18:14:39 2018 from 37.216.236.106
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-ami/2018.03-release-notes/
+6 package(s) needed for security, out of 7 available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-172-31-0-243 ~]$
+[ec2-user@ip-172-31-0-243 ~]$
+[ec2-user@ip-172-31-0-243 ~]$
+[ec2-user@ip-172-31-0-243 ~]$
+[ec2-user@ip-172-31-0-243 ~]$ cd opt/
+-bash: cd: opt/: No such file or directory
+[ec2-user@ip-172-31-0-243 ~]$ cd opt
+-bash: cd: opt: No such file or directory
+[ec2-user@ip-172-31-0-243 ~]$ ls
+[ec2-user@ip-172-31-0-243 ~]$ ls -l
+total 0
+[ec2-user@ip-172-31-0-243 ~]$ pwd
+/home/ec2-user
+[ec2-user@ip-172-31-0-243 ~]$ cd ..
+[ec2-user@ip-172-31-0-243 home]$ cd ..
+[ec2-user@ip-172-31-0-243 /]$ cd opt
+[ec2-user@ip-172-31-0-243 opt]$ cd tomcat
+-bash: cd: tomcat: No such file or directory
+[ec2-user@ip-172-31-0-243 opt]$ ls -ltr
+total 166016
+-rw-r--r-- 1 root root      5307 Mar 20  2012 jdk-8u151-linux-x64.tar.gz
+-rw-r--r-- 1 root root 169980729 Jul 13  2017 jdk-8u141-linux-x64.rpm
+drwxr-xr-x 5 root root      4096 May  8 17:48 aws
+[ec2-user@ip-172-31-0-243 opt]$ cd aws
+[ec2-user@ip-172-31-0-243 aws]$ ls -ltr
+total 32
+-rw-r--r-- 1 root root    83 Apr  2  2015 credential-file-path.template
+drwxr-xr-x 3 root root  4096 May  8 17:48 amitools
+drwxr-xr-x 7 root root  4096 May  8 17:48 apitools
+drwxr-xr-x 2 root root 20480 May  8 17:48 bin
+[ec2-user@ip-172-31-0-243 aws]$ pwd
+/opt/aws
+[ec2-user@ip-172-31-0-243 aws]$ cd ..
+[ec2-user@ip-172-31-0-243 opt]$ ls -ltr
+total 166016
+-rw-r--r-- 1 root root      5307 Mar 20  2012 jdk-8u151-linux-x64.tar.gz
+-rw-r--r-- 1 root root 169980729 Jul 13  2017 jdk-8u141-linux-x64.rpm
+drwxr-xr-x 5 root root      4096 May  8 17:48 aws
+[ec2-user@ip-172-31-0-243 opt]$ cd ..
+[ec2-user@ip-172-31-0-243 /]$ cd ..
+[ec2-user@ip-172-31-0-243 /]$ cd home
+[ec2-user@ip-172-31-0-243 home]$ ls -ltr
+total 4
+drwx------ 4 ec2-user ec2-user 4096 May 23 22:00 ec2-user
+[ec2-user@ip-172-31-0-243 home]$ cd ec2-user
+[ec2-user@ip-172-31-0-243 ~]$ ls -ltr
+total 0
+[ec2-user@ip-172-31-0-243 ~]$ cd ..
+[ec2-user@ip-172-31-0-243 home]$ cd ..
+[ec2-user@ip-172-31-0-243 /]$ cd opt
+[ec2-user@ip-172-31-0-243 opt]$ ls -ltr
+total 166016
+-rw-r--r-- 1 root root      5307 Mar 20  2012 jdk-8u151-linux-x64.tar.gz
+-rw-r--r-- 1 root root 169980729 Jul 13  2017 jdk-8u141-linux-x64.rpm
+drwxr-xr-x 5 root root      4096 May  8 17:48 aws
+[ec2-user@ip-172-31-0-243 opt]$ mkdir tomcat
+mkdir: cannot create directory ‘tomcat’: Permission denied
+[ec2-user@ip-172-31-0-243 opt]$ sudo mkdir tomcat
+[ec2-user@ip-172-31-0-243 opt]$ ls -ltr
+total 166020
+-rw-r--r-- 1 root root      5307 Mar 20  2012 jdk-8u151-linux-x64.tar.gz
+-rw-r--r-- 1 root root 169980729 Jul 13  2017 jdk-8u141-linux-x64.rpm
+drwxr-xr-x 5 root root      4096 May  8 17:48 aws
+drwxr-xr-x 2 root root      4096 May 24 17:28 tomcat
+[ec2-user@ip-172-31-0-243 opt]$ cd tomcat
+[ec2-user@ip-172-31-0-243 tomcat]$ sudo yum update
+Loaded plugins: priorities, update-motd, upgrade-helper
+amzn-main                                                | 2.1 kB     00:00
+amzn-updates                                             | 2.5 kB     00:00
+Resolving Dependencies
+--> Running transaction check
+---> Package ntp.x86_64 0:4.2.6p5-44.36.amzn1 will be updated
+---> Package ntp.x86_64 0:4.2.8p11-1.37.amzn1 will be an update
+---> Package ntpdate.x86_64 0:4.2.6p5-44.36.amzn1 will be updated
+---> Package ntpdate.x86_64 0:4.2.8p11-1.37.amzn1 will be an update
+---> Package openssh.x86_64 0:7.4p1-11.68.amzn1 will be updated
+---> Package openssh.x86_64 0:7.4p1-16.69.amzn1 will be an update
+---> Package openssh-clients.x86_64 0:7.4p1-11.68.amzn1 will be updated
+---> Package openssh-clients.x86_64 0:7.4p1-16.69.amzn1 will be an update
+---> Package openssh-server.x86_64 0:7.4p1-11.68.amzn1 will be updated
+---> Package openssh-server.x86_64 0:7.4p1-16.69.amzn1 will be an update
+---> Package openssl.x86_64 1:1.0.2k-8.107.amzn1 will be updated
+---> Package openssl.x86_64 1:1.0.2k-12.109.amzn1 will be an update
+---> Package rpcbind.x86_64 0:0.2.0-13.9.amzn1 will be updated
+---> Package rpcbind.x86_64 0:0.2.0-13.10.amzn1 will be an update
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package            Arch      Version                     Repository       Size
+================================================================================
+Updating:
+ ntp                x86_64    4.2.8p11-1.37.amzn1         amzn-updates    1.0 M
+ ntpdate            x86_64    4.2.8p11-1.37.amzn1         amzn-updates     88 k
+ openssh            x86_64    7.4p1-16.69.amzn1           amzn-updates    639 k
+ openssh-clients    x86_64    7.4p1-16.69.amzn1           amzn-updates    1.1 M
+ openssh-server     x86_64    7.4p1-16.69.amzn1           amzn-updates    511 k
+ openssl            x86_64    1:1.0.2k-12.109.amzn1       amzn-updates    1.8 M
+ rpcbind            x86_64    0.2.0-13.10.amzn1           amzn-updates     56 k
+
+Transaction Summary
+================================================================================
+Upgrade  7 Packages
+
+Total download size: 5.2 M
+Is this ok [y/d/N]: y
+Downloading packages:
+(1/7): ntpdate-4.2.8p11-1.37.amzn1.x86_64.rpm              |  88 kB   00:00
+(2/7): openssh-7.4p1-16.69.amzn1.x86_64.rpm                | 639 kB   00:00
+(3/7): ntp-4.2.8p11-1.37.amzn1.x86_64.rpm                  | 1.0 MB   00:00
+(4/7): openssh-clients-7.4p1-16.69.amzn1.x86_64.rpm        | 1.1 MB   00:00
+(5/7): openssh-server-7.4p1-16.69.amzn1.x86_64.rpm         | 511 kB   00:00
+(6/7): rpcbind-0.2.0-13.10.amzn1.x86_64.rpm                |  56 kB   00:00
+(7/7): openssl-1.0.2k-12.109.amzn1.x86_64.rpm              | 1.8 MB   00:00
+--------------------------------------------------------------------------------
+Total                                              3.3 MB/s | 5.2 MB  00:01
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Updating   : 1:openssl-1.0.2k-12.109.amzn1.x86_64                        1/14
+  Updating   : openssh-7.4p1-16.69.amzn1.x86_64                            2/14
+  Updating   : ntpdate-4.2.8p11-1.37.amzn1.x86_64                          3/14
+  Updating   : ntp-4.2.8p11-1.37.amzn1.x86_64                              4/14
+  Updating   : openssh-server-7.4p1-16.69.amzn1.x86_64                     5/14
+warning: /etc/ssh/sshd_config created as /etc/ssh/sshd_config.rpmnew
+  Updating   : openssh-clients-7.4p1-16.69.amzn1.x86_64                    6/14
+  Updating   : rpcbind-0.2.0-13.10.amzn1.x86_64                            7/14
+  Cleanup    : openssh-clients-7.4p1-11.68.amzn1.x86_64                    8/14
+  Cleanup    : openssh-server-7.4p1-11.68.amzn1.x86_64                     9/14
+  Cleanup    : ntp-4.2.6p5-44.36.amzn1.x86_64                             10/14
+  Cleanup    : ntpdate-4.2.6p5-44.36.amzn1.x86_64                         11/14
+  Cleanup    : openssh-7.4p1-11.68.amzn1.x86_64                           12/14
+  Cleanup    : 1:openssl-1.0.2k-8.107.amzn1.x86_64                        13/14
+  Cleanup    : rpcbind-0.2.0-13.9.amzn1.x86_64                            14/14
+  Verifying  : openssh-7.4p1-16.69.amzn1.x86_64                            1/14
+  Verifying  : ntp-4.2.8p11-1.37.amzn1.x86_64                              2/14
+  Verifying  : openssh-server-7.4p1-16.69.amzn1.x86_64                     3/14
+  Verifying  : 1:openssl-1.0.2k-12.109.amzn1.x86_64                        4/14
+  Verifying  : openssh-clients-7.4p1-16.69.amzn1.x86_64                    5/14
+  Verifying  : ntpdate-4.2.8p11-1.37.amzn1.x86_64                          6/14
+  Verifying  : rpcbind-0.2.0-13.10.amzn1.x86_64                            7/14
+  Verifying  : rpcbind-0.2.0-13.9.amzn1.x86_64                             8/14
+  Verifying  : ntpdate-4.2.6p5-44.36.amzn1.x86_64                          9/14
+  Verifying  : 1:openssl-1.0.2k-8.107.amzn1.x86_64                        10/14
+  Verifying  : openssh-clients-7.4p1-11.68.amzn1.x86_64                   11/14
+  Verifying  : openssh-server-7.4p1-11.68.amzn1.x86_64                    12/14
+  Verifying  : openssh-7.4p1-11.68.amzn1.x86_64                           13/14
+  Verifying  : ntp-4.2.6p5-44.36.amzn1.x86_64                             14/14
+
+Updated:
+  ntp.x86_64 0:4.2.8p11-1.37.amzn1
+  ntpdate.x86_64 0:4.2.8p11-1.37.amzn1
+  openssh.x86_64 0:7.4p1-16.69.amzn1
+  openssh-clients.x86_64 0:7.4p1-16.69.amzn1
+  openssh-server.x86_64 0:7.4p1-16.69.amzn1
+  openssl.x86_64 1:1.0.2k-12.109.amzn1
+  rpcbind.x86_64 0:0.2.0-13.10.amzn1
+
+Complete!
+[ec2-user@ip-172-31-0-243 tomcat]$ yum list tomcat*
+Loaded plugins: priorities, update-motd, upgrade-helper
+Available Packages
+tomcat-native.x86_64                      1.2.16-1.20.amzn1            amzn-main
+tomcat7.noarch                            7.0.85-1.32.amzn1            amzn-main
+tomcat7-admin-webapps.noarch              7.0.85-1.32.amzn1            amzn-main
+tomcat7-docs-webapp.noarch                7.0.85-1.32.amzn1            amzn-main
+tomcat7-el-2.2-api.noarch                 7.0.85-1.32.amzn1            amzn-main
+tomcat7-javadoc.noarch                    7.0.85-1.32.amzn1            amzn-main
+tomcat7-jsp-2.2-api.noarch                7.0.85-1.32.amzn1            amzn-main
+tomcat7-lib.noarch                        7.0.85-1.32.amzn1            amzn-main
+tomcat7-log4j.noarch                      7.0.85-1.32.amzn1            amzn-main
+tomcat7-servlet-3.0-api.noarch            7.0.85-1.32.amzn1            amzn-main
+tomcat7-webapps.noarch                    7.0.85-1.32.amzn1            amzn-main
+tomcat8.noarch                            8.5.29-1.77.amzn1            amzn-main
+tomcat8-admin-webapps.noarch              8.5.29-1.77.amzn1            amzn-main
+tomcat8-docs-webapp.noarch                8.5.29-1.77.amzn1            amzn-main
+tomcat8-el-3.0-api.noarch                 8.5.29-1.77.amzn1            amzn-main
+tomcat8-javadoc.noarch                    8.5.29-1.77.amzn1            amzn-main
+tomcat8-jsp-2.3-api.noarch                8.5.29-1.77.amzn1            amzn-main
+tomcat8-lib.noarch                        8.5.29-1.77.amzn1            amzn-main
+tomcat8-log4j.noarch                      8.5.29-1.77.amzn1            amzn-main
+tomcat8-servlet-3.1-api.noarch            8.5.29-1.77.amzn1            amzn-main
+tomcat8-webapps.noarch                    8.5.29-1.77.amzn1            amzn-main
+tomcat80.noarch                           8.0.50-1.79.amzn1            amzn-main
+tomcat80-admin-webapps.noarch             8.0.50-1.79.amzn1            amzn-main
+tomcat80-docs-webapp.noarch               8.0.50-1.79.amzn1            amzn-main
+tomcat80-el-3.0-api.noarch                8.0.50-1.79.amzn1            amzn-main
+tomcat80-javadoc.noarch                   8.0.50-1.79.amzn1            amzn-main
+tomcat80-jsp-2.3-api.noarch               8.0.50-1.79.amzn1            amzn-main
+tomcat80-lib.noarch                       8.0.50-1.79.amzn1            amzn-main
+tomcat80-log4j.noarch                     8.0.50-1.79.amzn1            amzn-main
+tomcat80-servlet-3.1-api.noarch           8.0.50-1.79.amzn1            amzn-main
+tomcat80-webapps.noarch                   8.0.50-1.79.amzn1            amzn-main
+[ec2-user@ip-172-31-0-243 tomcat]$ sudo yum install tomcat7-webapp tomcat7-admin                      -webapp
+Loaded plugins: priorities, update-motd, upgrade-helper
+No package tomcat7-webapp available.
+No package tomcat7-admin-webapp available.
+Error: Nothing to do
+[ec2-user@ip-172-31-0-243 tomcat]$ sudo yum install tomcat7-webapps tomcat7-admin-webapps             Loaded plugins: priorities, update-motd, upgrade-helper
+Resolving Dependencies
+--> Running transaction check
+---> Package tomcat7-admin-webapps.noarch 0:7.0.85-1.32.amzn1 will be installed
+--> Processing Dependency: tomcat7 = 7.0.85-1.32.amzn1 for package: tomcat7-admin-webapps-7.0.85-1.32.amzn1.noarch
+---> Package tomcat7-webapps.noarch 0:7.0.85-1.32.amzn1 will be installed
+--> Processing Dependency: jakarta-taglibs-standard >= 1.1 for package: tomcat7-webapps-7.0.85-1.32.amzn1.noarch
+--> Running transaction check
+---> Package jakarta-taglibs-standard.noarch 0:1.1.1-11.7.9.amzn1 will be installed
+--> Processing Dependency: xalan-j2 >= 2.6.0 for package: jakarta-taglibs-standard-1.1.1-11.7.9.amzn1.noarch
+--> Processing Dependency: apache-tomcat-apis for package: jakarta-taglibs-standard-1.1.1-11.7.9.amzn1.noarch
+---> Package tomcat7.noarch 0:7.0.85-1.32.amzn1 will be installed
+--> Processing Dependency: tomcat7-lib = 7.0.85-1.32.amzn1 for package: tomcat7-7.0.85-1.32.amzn1.noarch
+--> Processing Dependency: apache-commons-pool for package: tomcat7-7.0.85-1.32.amzn1.noarch
+--> Processing Dependency: apache-commons-logging for package: tomcat7-7.0.85-1.32.amzn1.noarch
+--> Processing Dependency: apache-commons-dbcp for package: tomcat7-7.0.85-1.32.amzn1.noarch
+--> Processing Dependency: apache-commons-daemon for package: tomcat7-7.0.85-1.32.amzn1.noarch
+--> Processing Dependency: apache-commons-collections for package: tomcat7-7.0.85-1.32.amzn1.noarch
+--> Running transaction check
+---> Package apache-commons-collections.noarch 0:3.2.2-3.10.amzn1 will be installed
+---> Package apache-commons-daemon.x86_64 0:1.0.7-1.6.amzn1 will be installed
+---> Package apache-commons-dbcp.noarch 0:1.4-7.7.amzn1 will be installed
+---> Package apache-commons-logging.noarch 0:1.1.1-16.8.amzn1 will be installed
+---> Package apache-commons-pool.noarch 0:1.5.6-1.7.amzn1 will be installed
+---> Package apache-tomcat-apis.noarch 0:0.1-1.6.amzn1 will be installed
+---> Package tomcat7-lib.noarch 0:7.0.85-1.32.amzn1 will be installed
+--> Processing Dependency: tomcat7-servlet-3.0-api = 7.0.85-1.32.amzn1 for package: tomcat7-lib-7.0.85-1.32.amzn1.noarch
+--> Processing Dependency: tomcat7-jsp-2.2-api = 7.0.85-1.32.amzn1 for package: tomcat7-lib-7.0.85-1.32.amzn1.noarch
+--> Processing Dependency: tomcat7-el-2.2-api = 7.0.85-1.32.amzn1 for package: tomcat7-lib-7.0.85-1.32.amzn1.noarch
+--> Processing Dependency: ecj >= 1:4.2.1 for package: tomcat7-lib-7.0.85-1.32.amzn1.noarch
+---> Package xalan-j2.noarch 0:2.7.0-9.9.10.amzn1 will be installed
+--> Running transaction check
+---> Package ecj.x86_64 1:4.2.1-4.15.amzn1 will be installed
+---> Package tomcat7-el-2.2-api.noarch 0:7.0.85-1.32.amzn1 will be installed
+---> Package tomcat7-jsp-2.2-api.noarch 0:7.0.85-1.32.amzn1 will be installed
+---> Package tomcat7-servlet-3.0-api.noarch 0:7.0.85-1.32.amzn1 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+======================================================================================================
+ Package                            Arch           Version                    Repository         Size
+======================================================================================================
+Installing:
+ tomcat7-admin-webapps              noarch         7.0.85-1.32.amzn1          amzn-main          53 k
+ tomcat7-webapps                    noarch         7.0.85-1.32.amzn1          amzn-main         378 k
+Installing for dependencies:
+ apache-commons-collections         noarch         3.2.2-3.10.amzn1           amzn-main         531 k
+ apache-commons-daemon              x86_64         1.0.7-1.6.amzn1            amzn-main          51 k
+ apache-commons-dbcp                noarch         1.4-7.7.amzn1              amzn-main         161 k
+ apache-commons-logging             noarch         1.1.1-16.8.amzn1           amzn-main         131 k
+ apache-commons-pool                noarch         1.5.6-1.7.amzn1            amzn-main         101 k
+ apache-tomcat-apis                 noarch         0.1-1.6.amzn1              amzn-main         216 k
+ ecj                                x86_64         1:4.2.1-4.15.amzn1         amzn-main         1.4 M
+ jakarta-taglibs-standard           noarch         1.1.1-11.7.9.amzn1         amzn-main         306 k
+ tomcat7                            noarch         7.0.85-1.32.amzn1          amzn-main          97 k
+ tomcat7-el-2.2-api                 noarch         7.0.85-1.32.amzn1          amzn-main          82 k
+ tomcat7-jsp-2.2-api                noarch         7.0.85-1.32.amzn1          amzn-main          94 k
+ tomcat7-lib                        noarch         7.0.85-1.32.amzn1          amzn-main         3.9 M
+ tomcat7-servlet-3.0-api            noarch         7.0.85-1.32.amzn1          amzn-main         213 k
+ xalan-j2                           noarch         2.7.0-9.9.10.amzn1         amzn-main         1.8 M
+
+Transaction Summary
+======================================================================================================
+Install  2 Packages (+14 Dependent packages)
+
+Total download size: 9.5 M
+Installed size: 11 M
+Is this ok [y/d/N]: y
+Downloading packages:
+(1/16): apache-commons-daemon-1.0.7-1.6.amzn1.x86_64.rpm                       |  51 kB  00:00:00
+(2/16): apache-commons-dbcp-1.4-7.7.amzn1.noarch.rpm                           | 161 kB  00:00:00
+(3/16): apache-commons-collections-3.2.2-3.10.amzn1.noarch.rpm                 | 531 kB  00:00:00
+(4/16): apache-commons-logging-1.1.1-16.8.amzn1.noarch.rpm                     | 131 kB  00:00:00
+(5/16): apache-commons-pool-1.5.6-1.7.amzn1.noarch.rpm                         | 101 kB  00:00:00
+(6/16): apache-tomcat-apis-0.1-1.6.amzn1.noarch.rpm                            | 216 kB  00:00:00
+(7/16): jakarta-taglibs-standard-1.1.1-11.7.9.amzn1.noarch.rpm                 | 306 kB  00:00:00
+(8/16): tomcat7-7.0.85-1.32.amzn1.noarch.rpm                                   |  97 kB  00:00:00
+(9/16): tomcat7-admin-webapps-7.0.85-1.32.amzn1.noarch.rpm                     |  53 kB  00:00:00
+(10/16): tomcat7-el-2.2-api-7.0.85-1.32.amzn1.noarch.rpm                       |  82 kB  00:00:00
+(11/16): tomcat7-jsp-2.2-api-7.0.85-1.32.amzn1.noarch.rpm                      |  94 kB  00:00:00
+(12/16): ecj-4.2.1-4.15.amzn1.x86_64.rpm                                       | 1.4 MB  00:00:00
+(13/16): tomcat7-servlet-3.0-api-7.0.85-1.32.amzn1.noarch.rpm                  | 213 kB  00:00:00
+(14/16): tomcat7-webapps-7.0.85-1.32.amzn1.noarch.rpm                          | 378 kB  00:00:00
+(15/16): xalan-j2-2.7.0-9.9.10.amzn1.noarch.rpm                                | 1.8 MB  00:00:00
+(16/16): tomcat7-lib-7.0.85-1.32.amzn1.noarch.rpm                              | 3.9 MB  00:00:01
+------------------------------------------------------------------------------------------------------
+Total                                                                 4.5 MB/s | 9.5 MB  00:00:02
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : apache-commons-pool-1.5.6-1.7.amzn1.noarch                                        1/16
+  Installing : apache-commons-dbcp-1.4-7.7.amzn1.noarch                                          2/16
+  Installing : tomcat7-servlet-3.0-api-7.0.85-1.32.amzn1.noarch                                  3/16
+  Installing : apache-commons-collections-3.2.2-3.10.amzn1.noarch                                4/16
+  Installing : tomcat7-el-2.2-api-7.0.85-1.32.amzn1.noarch                                       5/16
+  Installing : tomcat7-jsp-2.2-api-7.0.85-1.32.amzn1.noarch                                      6/16
+  Installing : apache-commons-daemon-1.0.7-1.6.amzn1.x86_64                                      7/16
+  Installing : apache-tomcat-apis-0.1-1.6.amzn1.noarch                                           8/16
+  Installing : apache-commons-logging-1.1.1-16.8.amzn1.noarch                                    9/16
+  Installing : xalan-j2-2.7.0-9.9.10.amzn1.noarch                                               10/16
+  Installing : jakarta-taglibs-standard-1.1.1-11.7.9.amzn1.noarch                               11/16
+  Installing : 1:ecj-4.2.1-4.15.amzn1.x86_64                                                    12/16
+  Installing : tomcat7-lib-7.0.85-1.32.amzn1.noarch                                             13/16
+  Installing : tomcat7-7.0.85-1.32.amzn1.noarch                                                 14/16
+  Installing : tomcat7-webapps-7.0.85-1.32.amzn1.noarch                                         15/16
+  Installing : tomcat7-admin-webapps-7.0.85-1.32.amzn1.noarch                                   16/16
+  Verifying  : apache-commons-pool-1.5.6-1.7.amzn1.noarch                                        1/16
+  Verifying  : tomcat7-el-2.2-api-7.0.85-1.32.amzn1.noarch                                       2/16
+  Verifying  : apache-commons-collections-3.2.2-3.10.amzn1.noarch                                3/16
+  Verifying  : 1:ecj-4.2.1-4.15.amzn1.x86_64                                                     4/16
+  Verifying  : tomcat7-lib-7.0.85-1.32.amzn1.noarch                                              5/16
+  Verifying  : xalan-j2-2.7.0-9.9.10.amzn1.noarch                                                6/16
+  Verifying  : tomcat7-webapps-7.0.85-1.32.amzn1.noarch                                          7/16
+  Verifying  : tomcat7-jsp-2.2-api-7.0.85-1.32.amzn1.noarch                                      8/16
+  Verifying  : apache-commons-logging-1.1.1-16.8.amzn1.noarch                                    9/16
+  Verifying  : apache-tomcat-apis-0.1-1.6.amzn1.noarch                                          10/16
+  Verifying  : tomcat7-7.0.85-1.32.amzn1.noarch                                                 11/16
+  Verifying  : tomcat7-servlet-3.0-api-7.0.85-1.32.amzn1.noarch                                 12/16
+  Verifying  : apache-commons-dbcp-1.4-7.7.amzn1.noarch                                         13/16
+  Verifying  : jakarta-taglibs-standard-1.1.1-11.7.9.amzn1.noarch                               14/16
+  Verifying  : apache-commons-daemon-1.0.7-1.6.amzn1.x86_64                                     15/16
+  Verifying  : tomcat7-admin-webapps-7.0.85-1.32.amzn1.noarch                                   16/16
+
+Installed:
+  tomcat7-admin-webapps.noarch 0:7.0.85-1.32.amzn1     tomcat7-webapps.noarch 0:7.0.85-1.32.amzn1
+
+Dependency Installed:
+  apache-commons-collections.noarch 0:3.2.2-3.10.amzn1
+  apache-commons-daemon.x86_64 0:1.0.7-1.6.amzn1
+  apache-commons-dbcp.noarch 0:1.4-7.7.amzn1
+  apache-commons-logging.noarch 0:1.1.1-16.8.amzn1
+  apache-commons-pool.noarch 0:1.5.6-1.7.amzn1
+  apache-tomcat-apis.noarch 0:0.1-1.6.amzn1
+  ecj.x86_64 1:4.2.1-4.15.amzn1
+  jakarta-taglibs-standard.noarch 0:1.1.1-11.7.9.amzn1
+  tomcat7.noarch 0:7.0.85-1.32.amzn1
+  tomcat7-el-2.2-api.noarch 0:7.0.85-1.32.amzn1
+  tomcat7-jsp-2.2-api.noarch 0:7.0.85-1.32.amzn1
+  tomcat7-lib.noarch 0:7.0.85-1.32.amzn1
+  tomcat7-servlet-3.0-api.noarch 0:7.0.85-1.32.amzn1
+  xalan-j2.noarch 0:2.7.0-9.9.10.amzn1
+
+Complete!
+[ec2-user@ip-172-31-0-243 tomcat]$ ls -ltr
+total 0
+[ec2-user@ip-172-31-0-243 tomcat]$ cd ls -ltr
+-bash: cd: ls: No such file or directory
+[ec2-user@ip-172-31-0-243 tomcat]$ ls
+[ec2-user@ip-172-31-0-243 tomcat]$ pwd
+/opt/tomcat
+[ec2-user@ip-172-31-0-243 tomcat]$
+[ec2-user@ip-172-31-0-243 tomcat]$ cd ..
+[ec2-user@ip-172-31-0-243 opt]$  cd ..
+[ec2-user@ip-172-31-0-243 /]$ cd usr
+[ec2-user@ip-172-31-0-243 usr]$ ls -ltr
+total 92
+drwxr-xr-x  2 root root  4096 Jan  6  2012 games
+drwxr-xr-x  2 root root  4096 Jan  6  2012 etc
+drwxr-xr-x 12 root root  4096 May  8 17:48 local
+lrwxrwxrwx  1 root root    10 May  8 17:48 tmp -> ../var/tmp
+drwxr-xr-x  3 root root  4096 May  8 17:48 include
+dr-xr-xr-x 20 root root  4096 May  8 17:48 lib
+drwxr-xr-x  5 root root  4096 May  8 17:48 src
+drwxr-xr-x  3 root root  4096 May 23 19:05 java
+drwxr-xr-x  2 root root  4096 May 23 19:12 tomcat
+dr-xr-xr-x 28 root root 20480 May 24 17:29 lib64
+drwxr-xr-x 83 root root  4096 May 24 17:33 share
+dr-xr-xr-x  2 root root 12288 May 24 17:33 sbin
+drwxr-xr-x 12 root root  4096 May 24 17:33 libexec
+dr-xr-xr-x  2 root root 20480 May 24 17:33 bin
+[ec2-user@ip-172-31-0-243 usr]$ cd tomcat
+[ec2-user@ip-172-31-0-243 tomcat]$ ls -ltr
+total 0
+[ec2-user@ip-172-31-0-243 tomcat]$ tomcat sudo service tomcat7 start
+-bash: tomcat: command not found
+[ec2-user@ip-172-31-0-243 tomcat]$ cd /usr/share/tomcat7
+[ec2-user@ip-172-31-0-243 tomcat7]$ ls
+bin  conf  lib  logs  temp  webapps  work
+[ec2-user@ip-172-31-0-243 tomcat7]$ ls -ltr
+total 4
+lrwxrwxrwx 1 root tomcat   23 May 24 17:33 work -> /var/cache/tomcat7/work
+lrwxrwxrwx 1 root tomcat   24 May 24 17:33 webapps -> /var/lib/tomcat7/webapps
+lrwxrwxrwx 1 root tomcat   23 May 24 17:33 temp -> /var/cache/tomcat7/temp
+lrwxrwxrwx 1 root tomcat   16 May 24 17:33 logs -> /var/log/tomcat7
+lrwxrwxrwx 1 root tomcat   23 May 24 17:33 lib -> /usr/share/java/tomcat7
+lrwxrwxrwx 1 root tomcat   12 May 24 17:33 conf -> /etc/tomcat7
+drwxr-xr-x 2 root root   4096 May 24 17:33 bin
+[ec2-user@ip-172-31-0-243 tomcat7]$ var/cache/tomcat7/temp
+-bash: var/cache/tomcat7/temp: No such file or directory
+[ec2-user@ip-172-31-0-243 tomcat7]$ sudo service tomcat7 start
+[ec2-user@ip-172-31-0-243 tomcat7]$                        [  OK  ]
+[ec2-user@ip-172-31-0-243 tomcat7]$ tomcat sudo service tomcat7 stop
+-bash: tomcat: command not found
+[ec2-user@ip-172-31-0-243 tomcat7]$ sudo service tomcat7 stop
+[ec2-user@ip-172-31-0-243 tomcat7]$                        [  OK  ]
+[ec2-user@ip-172-31-0-243 tomcat7]$
